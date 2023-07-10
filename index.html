@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lezione del 10/07/2023</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        
+        <h1>To do list</h1>
+    </header>
+    <main>
+        <div>
+            <button onclick="orderByTitle()">Ordina per nome</button>
+            <button onclick="orderByDate()">Ordina per data</button>
+        </div>
+        <div id = "todo-container">
+
+        </div>
+
+        <div>
+            <input type="text" id="title-input">
+            <button onclick="addTodo()">Aggiungi to do</button>
+        </div>
+
+    </main>
+</body>
+<script src="./model/to-do.js"></script>
+<script src="./model/manager.js"></script>
+<script src="./services/data-service.js"></script>
+<script src="./services/storage-service.js"></script>
+<script src="./main.js"></script>
+</html>
