@@ -15,8 +15,9 @@ class ToDo {
 
   compareByDate(todo){
 
-    return todo.creationDate.getTime() - this.creationDate.getTime();
+    return todo.creationDate.getTime() - this.creationDate.getTime();  // per comparare le due date, ad esempio qui todo.CreationDate è dove abbiamo passato il parametro 
+  }                                                                    // mentre this.creationDate è dove abbiamo chiamato la funzione
 
-  }
+  
 
 }

@@ -44,7 +44,7 @@ class Manager {
    
 
 // let input = 
-// // if (input !== ''){
+// if (input !== ''){
 // return input;
 // }
 // return 
