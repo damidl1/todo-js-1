@@ -1,3 +1,9 @@
+body{
+    height: 100vh;
+    margin: 0px;
+    background-image: url(https://cdn1.vectorstock.com/i/1000x1000/13/40/todo-list-seamless-pattern-universal-background-vector-7561340.jpg);
+}
+
 .todo-card{
 
     border: 3px solid crimson;
@@ -5,10 +11,45 @@
     flex-direction: column;
     padding: 4px;
     margin: 4px;
+    margin-bottom: 40px;
+    border-radius: 10px;
+    
+}
+
+header{
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #68C3D4;
+}
+
+header h1{
+    margin: 0px;
 }
 
 .todo-completed{
 
     border-color: lime;
+    
 
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    height: 90%;
+    
+
+
+}
+
+.add-todo-container{
+   padding: 8px;
+   
+}
+
+.spacer{
+    flex: 1;
 }

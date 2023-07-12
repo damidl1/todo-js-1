@@ -1,5 +1,14 @@
-const todos = DataService.getData();
-const manager = new Manager(todos);
+const todos = StorageService.loadTodos();
+let manager = new Manager();
+
+
+// altro metodo 
+// if (todos) {
+//   manager = new Manager(todos);
+// } else {                        // questo vuol dire, se passiamo il parametro todos crea il todo se non ci sono dati iniziali viene creato il manager senza niente
+//   manager = new Manager();
+// }
+
 
 function render() {
   const todosContainer = document.getElementById("todo-container");
@@ -10,9 +19,10 @@ function render() {
     const div = document.createElement("div");
     div.classList.add("todo-card");
     if (todo.isCompleted) {
-      // div.classList.add('todo-completed');
-      div.style.borderColor = "lime"; //con questo si può mettere la classe inline
+      div.classList.add("todo-completed");
+      // div.style.borderColor = "lime"; //con questo si può mettere la classe inline
     }
+
     const titleStrong = document.createElement("strong");
     const titleNode = document.createTextNode(todo.title);
 
@@ -26,20 +36,23 @@ function render() {
     div.appendChild(dateNode);
 
     const completeBtn = document.createElement("button"); //questo mette un bottone da premere per completare
-    const completeNode = document.createTextNode("Completato"); //questo mette il testo al bottone
+    const completeNode = document.createTextNode(todo.isCompleted ? "Da completare" : "Completato"); //questo mette il testo al bottone
+    completeBtn.addEventListener("click", () => {
+     manager.changeCompleteStatus(i);
+      // StorageService.saveData(manager.todosArray);
+      render();
+    });
 
     const deleteBtn = document.createElement("button");
     const deleteNode = document.createTextNode("Cancella");
 
     deleteBtn.addEventListener("click", () => {
       manager.deleteTodo(i);
+      // StorageService.saveData(manager.todosArray);
       render();
     });
 
-    completeBtn.addEventListener("click", () => {
-      todo.isCompleted = true; //questo si legge così: sul click, invoca una funzione vuota che fa diventare true "isCompleted"
-      render();
-    });
+
     completeBtn.appendChild(completeNode);
     div.appendChild(completeBtn);
 
@@ -48,20 +61,18 @@ function render() {
 
     todosContainer.appendChild(div);
   }
-
-
-
-
 }
 
+function addTodo() {
+  const input = document.getElementById("title-input");
+  const newTodoTitle = input.value;
 
-function addTodo(){
-    let input = document.getElementById("title-input").value;
-
-    if (input !== '') {
-      return manager.addTodoWithTitle(input);
-    }
-    render();
+  if (newTodoTitle.trim() !== "") {        //.trim() rimuove gli spazi prima e dopo la stringa
+    manager.addTodoWithTitle(newTodoTitle);
+    // StorageService.saveData(manager.todosArray);
+    input.value = ""; // per dire di ripulire l'input una volta che è stato inserito e viene premuto aggiungi
+  }
+  render();
 }
 //questo metodo alternativo sotto scrive l'HTML come stringhe all'interno del ciclo, ma document le andrà a inserire nell'HTML scrivendo di fatto HTML con tutti i tag funzionanti
 
@@ -92,13 +103,11 @@ function addTodo(){
 render();
 
 function orderByTitle() {
-  console.log("Order by name");
   manager.orderTodosByTitle();
   render();
 }
 
 function orderByDate() {
-  console.log("Order by date");
   manager.orderTodosByDate();
   render();
 }

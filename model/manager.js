@@ -1,42 +1,48 @@
 class Manager {
-  constructor(todosArray = []) {
-    this.todosArray = todosArray;
+  constructor(todosArray) {
+    if (!todosArray) {
+      const todos = StorageService.loadTodos();
+      if (todos) {
+        this.todosArray = todos;
+      } else {
+        this.todosArray = [];
+      } 
+    } else {
+      this.todosArray = todosArray;
+    }
   }
 
-  addToDo(todo){
-
+  addToDo(todo) {
     this.todosArray.push(todo);
-
   }
 
-  orderTodosByTitle(){
+  orderTodosByTitle() {
     this.todosArray.sort((todo1, todo2) => todo1.compareByTitle(todo2));
   }
 
-  orderTodosByDate(){
+  orderTodosByDate() {
     this.todosArray.sort((todo1, todo2) => todo1.compareByDate(todo2));
   }
 
-  deleteTodo(index){
 
-  this.todosArray.splice(index, 1);
-
+  changeCompleteStatus(index){
+    const todo = this.todosArray[index];
+    todo.isCompleted = !todo.isCompleted;
+    StorageService.saveData(this.todosArray);
   }
 
-  addTodoWithTitle(title){
+  deleteTodo(index) {
+    this.todosArray.splice(index, 1);
+    StorageService.saveData(this.todosArray);
+  }
 
+  addTodoWithTitle(title) {
     const newTodo = new ToDo(title);
 
     this.addToDo(newTodo);
-
-    
-
-    console.log('ciao');
-
+    StorageService.saveData(this.todosArray);
     render();
-
   }
-
 }
 
 //tasto "cancella" che chiama la funzione "deleteTodo"

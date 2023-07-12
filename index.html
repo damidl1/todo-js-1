@@ -12,15 +12,21 @@
         <h1>To do list</h1>
     </header>
     <main>
-        <div>
+        <!-- <div> -->
+              <div>
             <button onclick="orderByTitle()">Ordina per nome</button>
             <button onclick="orderByDate()">Ordina per data</button>
-        </div>
+          </div>
+        
+      
         <div id = "todo-container">
 
         </div>
+       <!-- </div> altro modo per allineare in basso l'input con div spacer-->
 
-        <div>
+       <div class="spacer">   
+       </div>
+        <div class="add-todo-container">
             <input type="text" id="title-input">
             <button onclick="addTodo()">Aggiungi to do</button>
         </div>
