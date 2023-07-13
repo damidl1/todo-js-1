@@ -5,7 +5,7 @@ class StorageService{
        localStorage.setItem('todosArray', dataString);
    }
 
-   static loadTodos(){
+   static loadTodos(){  // qui non carichiamo più oggetti generici ma i todos
      const dataString = localStorage.getItem('todosArray');
      if (dataString) {
         const data = JSON.parse(dataString);

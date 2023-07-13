@@ -1,7 +1,7 @@
 class Manager {
   constructor(todosArray) {
     if (!todosArray) {
-      const todos = StorageService.loadTodos();
+      const todos = StorageService.loadTodos(); //carichiamo i todos
       if (todos) {
         this.todosArray = todos;
       } else {
@@ -11,6 +11,7 @@ class Manager {
       this.todosArray = todosArray;
     }
   }
+
 
   addToDo(todo) {
     this.todosArray.push(todo);
@@ -25,6 +26,8 @@ class Manager {
   }
 
 
+
+   // abbiamo usato il saveData nelle uniche operazioni che cambiano i dati
   changeCompleteStatus(index){
     const todo = this.todosArray[index];
     todo.isCompleted = !todo.isCompleted;
