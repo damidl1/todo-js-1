@@ -10,7 +10,7 @@ const todo5 = new ToDo('Comprare il pane', false, new Date(2023, 7, 9))
 
 const todosArray = [todo1, todo2, todo3, todo4, todo5];
 return todosArray;
-}
+   
 
-
+ }
 }

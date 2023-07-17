@@ -1,18 +1,19 @@
 class Manager {
-  constructor(todosArray) {
-    if (!todosArray) {
-      const todos = StorageService.loadTodos(); //carichiamo i todos
-      if (todos) {
-        this.todosArray = todos;
-      } else {
-        this.todosArray = [];
-      } 
-    } else {
-      this.todosArray = todosArray;
-    }
+  constructor(todosArray = []) {
+  //   if (!todosArray) {
+  //     const todos = StorageService.loadTodos(); //carichiamo i todos
+  //     if (todos) {
+  //       this.todosArray = todos;
+  //     } else {
+  //       this.todosArray = [];
+  //     } 
+     
+  //   } else {
+  //     this.todosArray = todosArray;
+  //   }
+  // }
+    this.todosArray = todosArray;
   }
-
-
   addToDo(todo) {
     this.todosArray.push(todo);
   }
@@ -31,19 +32,20 @@ class Manager {
   changeCompleteStatus(index){
     const todo = this.todosArray[index];
     todo.isCompleted = !todo.isCompleted;
-    StorageService.saveData(this.todosArray);
+    // StorageService.saveData(this.todosArray);
   }
 
   deleteTodo(index) {
-    this.todosArray.splice(index, 1);
-    StorageService.saveData(this.todosArray);
+   
+   this.todosArray.splice(index, 1);
+    // StorageService.saveData(this.todosArray);
   }
 
   addTodoWithTitle(title) {
     const newTodo = new ToDo(title);
 
     this.addToDo(newTodo);
-    StorageService.saveData(this.todosArray);
+    // StorageService.saveData(this.todosArray);
     render();
   }
 }

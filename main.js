@@ -1,5 +1,11 @@
-const todos = StorageService.loadTodos();
-let manager = new Manager();
+// const todos = StorageService.loadTodos();
+let manager;
+
+DBService.getAllTodos().then(todos => {
+  console.log(todos)
+  manager = new Manager(todos);
+  render();
+});
 
 
 // altro metodo 
@@ -47,9 +53,14 @@ function render() {
     const deleteNode = document.createTextNode("Cancella");
 
     deleteBtn.addEventListener("click", () => {
-      manager.deleteTodo(i);
+      
+      DBService.deleteTodo(todo.id).then(() => {
+          manager.deleteTodo(i); 
+          render();
+      });
+     
       // StorageService.saveData(manager.todosArray);
-      render();
+     
     });
 
 
@@ -100,7 +111,7 @@ function addTodo() {
 
 // }
 
-render();
+// render();
 
 function orderByTitle() {
   manager.orderTodosByTitle();
