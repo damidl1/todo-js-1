@@ -44,9 +44,26 @@ function render() {
     const completeBtn = document.createElement("button"); //questo mette un bottone da premere per completare
     const completeNode = document.createTextNode(todo.isCompleted ? "Da completare" : "Completato"); //questo mette il testo al bottone
     completeBtn.addEventListener("click", () => {
-     manager.changeCompleteStatus(i);
+
+
+      
+      const modifiedTodo = {...todo};
+
+      // if (modifiedTodo.isCompleted === true) {    questa funzione è la stessa cosa di scrivere  modifiedTodo.isCompleted = !modifiedTodo.isCompleted;
+      //   modifiedTodo.isCompleted = false;       
+      // } else {
+      //   modifiedTodo.isCompleted = true;
+      // }
+
+
+      modifiedTodo.isCompleted = !modifiedTodo.isCompleted;
+      DBService.updateTodo(modifiedTodo).then(res => {
+        manager.changeCompleteStatus(i); 
+        render();
+      });
+     
       // StorageService.saveData(manager.todosArray);
-      render();
+     
     });
 
     const deleteBtn = document.createElement("button");
@@ -78,12 +95,21 @@ function addTodo() {
   const input = document.getElementById("title-input");
   const newTodoTitle = input.value;
 
-  if (newTodoTitle.trim() !== "") {        //.trim() rimuove gli spazi prima e dopo la stringa
-    manager.addTodoWithTitle(newTodoTitle);
+  if (newTodoTitle.trim() !== "") {   
+    
+    const newTodo = new ToDo(newTodoTitle, false, new Date()); //.trim() rimuove gli spazi prima e dopo la stringa
+    
+    DBService.saveTodo(newTodo).then(res => {
+      manager.addToDo(res);
+      input.value = '';
+      render();
+    })
+    
+    // manager.addTodoWithTitle(newTodoTitle);
     // StorageService.saveData(manager.todosArray);
-    input.value = ""; // per dire di ripulire l'input una volta che è stato inserito e viene premuto aggiungi
+   // input.value = ""; // per dire di ripulire l'input una volta che è stato inserito e viene premuto aggiungi
   }
-  render();
+  // render();
 }
 //questo metodo alternativo sotto scrive l'HTML come stringhe all'interno del ciclo, ma document le andrà a inserire nell'HTML scrivendo di fatto HTML con tutti i tag funzionanti
 
